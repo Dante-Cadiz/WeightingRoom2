@@ -2,11 +2,32 @@
 
 {% block content %}
 
-{% for event in event_list %}
-<h2>{{ event.title }}</h2>
-<p>{{ event.content }}</p>
 
-{% endfor %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 left">
+            {% for event in event_list %}
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="image-container">
+                            <!-- add logic to determine which image is displayed here, using the featured image url from the Event model -->
+                            <img class="card-img-top" src="https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2016/08/The-Sad-Truth-Anout-the-Bench-Press.jpg">
+                        </div>
+                        <h2 class="card-title">{{ event.title }}</h2>
+                        <p class="card-text">{{ event.scheduled_time }} </p>
+                        <!-- show how many currently attending/max possible -->
+                        <!-- link to book event here -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
 
 
 {% endblock %}
