@@ -14,8 +14,10 @@
                             <!-- add logic to determine which image is displayed here, using the featured image url from the Event model -->
                             <img class="card-img-top" src="https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2016/08/The-Sad-Truth-Anout-the-Bench-Press.jpg">
                         </div>
+                        <!-- add anchor to this that goes to a specific event page -->
                         <h2 class="card-title">{{ event.title }}</h2>
                         <p class="card-text">{{ event.scheduled_time }} </p>
+                        <p class="card-text">{{ event.number_of_attendees }} attending</p>
                         <!-- show how many currently attending/max possible -->
                         <!-- link to book event here -->
                     </div>
@@ -30,4 +32,4 @@
 
 
 
-{% endblock %}
+{% endblock content %}

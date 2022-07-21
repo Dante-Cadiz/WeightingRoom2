@@ -12,9 +12,12 @@ class Event(models.Model):
     featured_image = CloudinaryField('image', default='placeholder')
     created_on = models.DateTimeField(auto_now_add=True)
     scheduled_time = models.DateTimeField(null=True)
-    attendees = models.ManyToManyField(User, related_name='attendees', blank=True)
+    attendees = models.ManyToManyField(User, related_name='attending_user', blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
     def __str__(self):
         return self.title
+    
+    def number_of_attendees(self):
+        return self.attendees.count()
 
