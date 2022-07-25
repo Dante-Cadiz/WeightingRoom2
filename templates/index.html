@@ -15,9 +15,12 @@
                             <img class="card-img-top" src="https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2016/08/The-Sad-Truth-Anout-the-Bench-Press.jpg">
                         </div>
                         <!-- add anchor to this that goes to a specific event page -->
+                        <a href="{% url 'event' event.slug %}">
                         <h2 class="card-title">{{ event.title }}</h2>
                         <p class="card-text">{{ event.scheduled_time }} </p>
                         <p class="card-text">{{ event.number_of_attendees }} attending</p>
+                    </a>
+                        <button type="button" class="btn btn-success">Book your spot!</button>
                         <!-- show how many currently attending/max possible -->
                         <!-- link to book event here -->
                     </div>
