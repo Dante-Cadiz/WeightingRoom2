@@ -26,3 +26,6 @@ class EventView(View):
 # In template show number incrementing
 # Some logic to prevent attending a fully booked event/show if an event is fully booked
 
+#or user events as view for myevents.html page
+#if event.attendees(id=request.user.id).exists()
+# event.attendees.add(request.user)  else, etd

@@ -21,3 +21,9 @@ class Event(models.Model):
     def number_of_attendees(self):
         return self.attendees.count()
 
+#class EventBooking(models.Model):
+    #user = models.ForeignKey(User, related)
+    # some specific logic that allows the user to access their own list of events depending on who they are
+
+# or -- class SiteUser - subclass/extension of User class which has many to many field for events
+# can easily add/edit events they are attending that way
