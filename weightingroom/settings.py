@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 import dj_database_url
 
 if os.path.isfile("env.py"):
@@ -102,10 +103,15 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
     #    'NAME': BASE_DIR / 'db.sqlite3',
     #}
 #}
-
-DATABASES = {
-   'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+if 'test' in sys.argv or 'test_coverage' in sys.argv:
+    DATABASES = {'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'testdatabase',
+    }}
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+        }
 
 
 # Password validation
