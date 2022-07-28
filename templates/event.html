@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Test</h1>
+{% if user.is_authenticated %}
+<form action="{% url 'booking' event.slug %}" method="POST" >
+    {% csrf_token %}
+    {% if user_attending %}
+<button type="submit" class="btn btn-danger">Cancel your booking</button>
+{% else %}
+<button type="submit" class="btn btn-success">Book your spot!</button>
+{% endif %}
+</form>
+{% endif %}
 {% endblock content %}
