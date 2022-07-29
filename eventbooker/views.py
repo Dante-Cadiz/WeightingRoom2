@@ -27,7 +27,7 @@ class EventView(View):
             },)
 
 class EventAttendance(View):
-    def event(self, request, slug, *args, **kwargs):
+    def post(self, request, slug, *args, **kwargs):
         event = get_object_or_404(Event, slug=slug)
         if event.attendees.filter(id=request.user.id).exists():
             event.attendees.remove(request.user)
@@ -35,8 +35,7 @@ class EventAttendance(View):
             event.attendees.add(request.user)
 
         return HttpResponseRedirect(reverse('event', args=[slug]))
-        #figure out why this httpresponseredirect isn't doing anything and is instead linking to some nonexistent 'booking' page
-
+        
 
 
 #or user events as view for myevents.html page

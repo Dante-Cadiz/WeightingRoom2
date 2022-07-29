@@ -14,12 +14,15 @@ class Event(models.Model):
     scheduled_time = models.DateTimeField(null=True)
     attendees = models.ManyToManyField(User, related_name='attending_user', blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    max_attendees = models.IntegerField(null=True)
 
     def __str__(self):
         return self.title
     
     def number_of_attendees(self):
         return self.attendees.count()
+
+#class Timeslot, allows events to be held at more than 1 time, or regularly
 
 #class EventBooking(models.Model):
     #user = models.ForeignKey(User, related)

@@ -19,8 +19,20 @@
                         <h2 class="card-title">{{ event.title }}</h2>
                         <p class="card-text">{{ event.scheduled_time }} </p>
                         <p class="card-text">{{ event.number_of_attendees }} attending</p>
+                        {% if user_attending %}
+                        <p class="card-text">You are attending this event</p>
+                        {% elif event.number_of_attendees >= event.max_attendees %}
+                        <p class="card-text">Event fully booked</p>
+                        {% else %}
+                        <p class="card-text">Book your spot!</p>
+                        {% endif %}
                     </a>
-                        <button type="button" class="btn btn-success">Book your spot!</button>
+                        
+
+
+
+
+
                         <!-- show how many currently attending/max possible -->
                         <!-- link to book event here -->
                     </div>
