@@ -9,9 +9,6 @@ class UpcomingEventMixin(object):
     queryset = Event.objects.filter(status=1)
 
 #class AttendanceMixin(object):
-    
-
-        
 
 class EventList(UpcomingEventMixin, generic.ListView):
     template_name = "index.html"
@@ -42,7 +39,7 @@ class EventAttendance(UpcomingEventMixin, View):
 
         return HttpResponseRedirect(reverse('event', args=[slug]))
         
-
+#class TimeslotView
 
 #or user events as view for myevents.html page
 #if event.attendees(id=request.user.id).exists()

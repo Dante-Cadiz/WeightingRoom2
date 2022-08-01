@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Draft'), (1, 'Upcoming'), (2, 'Past'))
@@ -12,6 +13,8 @@ class Event(models.Model):
                                related_name="events", null=True)
     featured_image = CloudinaryField('image', default='placeholder')
     created_on = models.DateTimeField(auto_now_add=True)
+    timeslots = models.ForeignKey('Timeslot', on_delete=models.RESTRICT,
+                                  related_name='times', null=True)
     attendees = models.ManyToManyField(User, related_name='attending_user',
                                        blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -22,6 +25,11 @@ class Event(models.Model):
     
     def number_of_attendees(self):
         return self.attendees.count()
+    
+    def show_timeslots(self):
+        #figure out how to get an iterable value out of the timeslots
+        #for time in times:
+           # return time.strftime("%m/%d, %H:%M")
 
 class Timeslot(models.Model):
     time = models.DateTimeField(null=True)
