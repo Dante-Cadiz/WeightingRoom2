@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if event.number_of_attendees >= event.max_attendees %}
+<h1>Sorry, this event is fully booked</h1>
+{% elif user.is_authenticated %}
 <form action="{% url 'booking' event.slug %}" method="POST" >
     {% csrf_token %}
     {% if user_attending %}

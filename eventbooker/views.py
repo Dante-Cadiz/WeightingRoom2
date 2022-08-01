@@ -4,18 +4,22 @@ from django.http import HttpResponseRedirect
 from .models import Event
 
 
-class EventList(generic.ListView):
-    model = Event
-    queryset = Event.objects.filter(status=1).order_by("scheduled_time")
+#restructure CBVs making a context mixin that covers all context
+class UpcomingEventMixin(object):
+    queryset = Event.objects.filter(status=1).order_by('scheduled_time')
+
+#class AttendanceMixin(object):
+        
+
+class EventList(UpcomingEventMixin, generic.ListView):
     template_name = "index.html"
 
-class EventView(View):
+class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
-        queryset = Event.objects.filter(status=1)
-        event = get_object_or_404(queryset, slug=slug)
+        event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         attendees = event.attendees
         user_attending = False
-        if event.attendees.filter(username=self.request.user.username).exists():
+        if event.attendees.filter(id=self.request.user.id).exists():
             user_attending = True
 
         return render(

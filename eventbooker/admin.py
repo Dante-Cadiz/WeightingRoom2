@@ -5,5 +5,5 @@ from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(Event)
 class EventAdmin(SummernoteModelAdmin):
-    prepopulated_fields ={'slug': ('title',)}
+    prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('content')

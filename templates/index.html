@@ -14,12 +14,12 @@
                             <!-- add logic to determine which image is displayed here, using the featured image url from the Event model -->
                             <img class="card-img-top" src="https://d3h9ln6psucegz.cloudfront.net/wp-content/uploads/2016/08/The-Sad-Truth-Anout-the-Bench-Press.jpg">
                         </div>
-                        <!-- add anchor to this that goes to a specific event page -->
                         <a href="{% url 'event' event.slug %}">
                         <h2 class="card-title">{{ event.title }}</h2>
                         <p class="card-text">{{ event.scheduled_time }} </p>
                         <p class="card-text">{{ event.number_of_attendees }} attending</p>
                         {% if user_attending %}
+                        <!-- why is this user_attending variable not being registered in index - to do with urls? -->
                         <p class="card-text">You are attending this event</p>
                         {% elif event.number_of_attendees >= event.max_attendees %}
                         <p class="card-text">Event fully booked</p>
