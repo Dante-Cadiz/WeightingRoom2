@@ -6,9 +6,11 @@ from .models import Event
 
 #restructure CBVs making a context mixin that covers all context
 class UpcomingEventMixin(object):
-    queryset = Event.objects.filter(status=1).order_by('scheduled_time')
+    queryset = Event.objects.filter(status=1)
 
 #class AttendanceMixin(object):
+    
+
         
 
 class EventList(UpcomingEventMixin, generic.ListView):
@@ -30,9 +32,9 @@ class EventView(UpcomingEventMixin, View):
                 "user_attending": user_attending
             },)
 
-class EventAttendance(View):
+class EventAttendance(UpcomingEventMixin, View):
     def post(self, request, slug, *args, **kwargs):
-        event = get_object_or_404(Event, slug=slug)
+        event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         if event.attendees.filter(id=request.user.id).exists():
             event.attendees.remove(request.user)
         else:
