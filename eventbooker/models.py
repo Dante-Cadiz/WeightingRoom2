@@ -13,8 +13,6 @@ class Event(models.Model):
                                related_name="events", null=True)
     featured_image = CloudinaryField('image', default='placeholder')
     created_on = models.DateTimeField(auto_now_add=True)
-    timeslots = models.ForeignKey('Timeslot', on_delete=models.RESTRICT,
-                                  related_name='times', null=True)
     attendees = models.ManyToManyField(User, related_name='attending_user',
                                        blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
@@ -26,15 +24,17 @@ class Event(models.Model):
     def number_of_attendees(self):
         return self.attendees.count()
     
-    def show_timeslots(self):
-        #figure out how to get an iterable value out of the timeslots
-        #for time in times:
-           # return time.strftime("%m/%d, %H:%M")
-
+    #get_absolute_url method?
+    
+    
 class Timeslot(models.Model):
     time = models.DateTimeField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name='associated_event', null=True)
+    
+    def show_timeslots(self):
+        return self.time.strftime("%-d/%-m, %H:%M")
+    
 
 class Booking(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, 
@@ -43,4 +43,6 @@ class Booking(models.Model):
                                related_name='booker', blank=True)
     timeslot = models.ForeignKey(Timeslot, on_delete=models.CASCADE, 
                                  related_name='timeslots', blank=True)
+    
+    #get_absolute_url method?
 

@@ -11,6 +11,5 @@ class TimeslotInline(admin.TabularInline):
 class EventAdmin(SummernoteModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('content')
-    exclude = ('timeslots',)
     inlines = [TimeslotInline, ]
 
