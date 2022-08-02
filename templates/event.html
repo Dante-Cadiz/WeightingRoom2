@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% for timeslot in timeslots %}
+<h1></h1>
 {% if event.number_of_attendees >= event.max_attendees %}
 <h1>Sorry, this event is fully booked</h1>
 {% elif user.is_authenticated %}
 <form action="{% url 'booking' event.slug %}" method="POST" >
     {% csrf_token %}
     {% if user_attending %}
-<button type="submit" class="btn btn-danger">Cancel your booking</button>
+<button type="submit" class="btn btn-danger">{{ timeslot.show_timeslots }} - Cancel your booking</button>
 {% else %}
-<button type="submit" class="btn btn-success">Book your spot!</button>
+<button type="submit" class="btn btn-success">{{ timeslot.show_timeslots }} - Book</button>
 {% endif %}
 </form>
 {% endif %}
+{% endfor %}
 {% endblock content %}

@@ -13,16 +13,12 @@ class Event(models.Model):
                                related_name="events", null=True)
     featured_image = CloudinaryField('image', default='placeholder')
     created_on = models.DateTimeField(auto_now_add=True)
-    attendees = models.ManyToManyField(User, related_name='attending_user',
-                                       blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
     max_attendees = models.IntegerField(null=True)
 
     def __str__(self):
         return self.title
     
-    def number_of_attendees(self):
-        return self.attendees.count()
     
     #get_absolute_url method?
     
@@ -31,6 +27,11 @@ class Timeslot(models.Model):
     time = models.DateTimeField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name='associated_event', null=True)
+    attendees = models.ManyToManyField(User, related_name='attending_user',
+                                       blank=True)
+                                       
+    def number_of_attendees(self):
+        return self.attendees.count()
     
     def show_timeslots(self):
         return self.time.strftime("%-d/%-m, %H:%M")

@@ -16,9 +16,9 @@
                         </div>
                         <a href="{% url 'event' event.slug %}">
                         <h2 class="card-title">{{ event.title }}</h2>
-                        <p class="card-text">{
-                            <!-- for timeslot in event.timeslots  show_timeslot()-->
-                        } </p>
+                        {% for timeslot in event.timeslots %}
+                        <p class="card-text"> {{ timeslot.show_timeslots }} </p>
+                        {% endfor %}
                         <p class="card-text">{{ event.number_of_attendees }} attending</p>
                         {% if user_attending %}
                         <!-- why is this user_attending variable not being registered in index - to do with urls? -->
