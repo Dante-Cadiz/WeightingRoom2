@@ -16,10 +16,13 @@ class EventList(UpcomingEventMixin, generic.ListView):
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        attendees = event.attendees
-        timeslots = Timeslot.objects.filter(event=event)
+        timeslots = event.times.all().order_by("start_time")
+        #figure out how to access an individual timeslot, while knowing which one you are going to access
+        #iterating across for loop?
+        #figure out how to make this block of logic work with respect to the timeslots
+        attendees = timeslot.number_of_attendees()
         user_attending = False
-        if event.attendees.filter(id=self.request.user.id).exists():
+        if timeslot.attendees.filter(id=self.request.user.id).exists():
             user_attending = True
         
 
@@ -35,10 +38,12 @@ class EventView(UpcomingEventMixin, View):
 class EventAttendance(UpcomingEventMixin, View):
     def post(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        if event.attendees.filter(id=request.user.id).exists():
-            event.attendees.remove(request.user)
+        timeslots = event.times.all().order_by("start_time")
+        # figure out how to make this block of logic apply
+        if timeslot.attendees.filter(id=request.user.id).exists():
+            timeslot.attendees.remove(request.user)
         else:
-            event.attendees.add(request.user)
+            timeslot.attendees.add(request.user)
 
         return HttpResponseRedirect(reverse('event', args=[slug]))
         

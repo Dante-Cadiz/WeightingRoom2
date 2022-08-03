@@ -19,11 +19,11 @@
                         {% for timeslot in event.timeslots %}
                         <p class="card-text"> {{ timeslot.show_timeslots }} </p>
                         {% endfor %}
-                        <p class="card-text">{{ event.number_of_attendees }} attending</p>
+                        <p class="card-text">{{ timeslot.number_of_attendees }} attending</p>
                         {% if user_attending %}
                         <!-- why is this user_attending variable not being registered in index - to do with urls? -->
                         <p class="card-text">You are attending this event</p>
-                        {% elif event.number_of_attendees >= event.max_attendees %}
+                        {% elif timeslot.number_of_attendees >= event.max_attendees %}
                         <p class="card-text">Event fully booked</p>
                         {% else %}
                         <p class="card-text">Book your spot!</p>

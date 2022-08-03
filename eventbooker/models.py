@@ -4,6 +4,7 @@ from datetime import datetime
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Draft'), (1, 'Upcoming'), (2, 'Past'))
+#make events automatically become past events after the time has passed
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
@@ -24,17 +25,23 @@ class Event(models.Model):
     
     
 class Timeslot(models.Model):
-    time = models.DateTimeField(null=True)
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
-                              related_name='associated_event', null=True)
-    attendees = models.ManyToManyField(User, related_name='attending_user',
-                                       blank=True)
+                              related_name='times', null=True)
+    attendees = models.ManyToManyField(User, blank=True)
                                        
     def number_of_attendees(self):
         return self.attendees.count()
     
+    def clean(self):
+        if self.start_time >= self.end_time:
+            raise ValidationError("Start time must be before end time.")
+    
     def show_timeslots(self):
-        return self.time.strftime("%-d/%-m, %H:%M")
+        start = self.start_time.strftime("%-d/%-m, %H:%M")
+        end = self.end_time.strftime("%H:%M")
+        return f"{start} - {end}"
     
 
 class Booking(models.Model):
