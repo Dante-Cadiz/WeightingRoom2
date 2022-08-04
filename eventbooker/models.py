@@ -38,10 +38,10 @@ class Timeslot(models.Model):
         if self.start_time >= self.end_time:
             raise ValidationError("Start time must be before end time.")
     
-    def show_timeslots(self):
-        start = self.start_time.strftime("%-d/%-m, %H:%M")
-        end = self.end_time.strftime("%H:%M")
-        return f"{start} - {end}"
+    #def show_timeslots(self):  change to a __str__ method?
+        #start = self.start_time.strftime("%-d/%-m, %H:%M")
+        #end = self.end_time.strftime("%H:%M")
+        #return f"{start} - {end}"
     
 
 class Booking(models.Model):

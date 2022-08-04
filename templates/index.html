@@ -16,7 +16,7 @@
                         </div>
                         <a href="{% url 'event' event.slug %}">
                         <h2 class="card-title">{{ event.title }}</h2>
-                        {% for timeslot in event.timeslots %}
+                        {% for timeslot in event.times.all %}
                         <p class="card-text"> {{ timeslot.show_timeslots }} </p>
                         {% endfor %}
                         <p class="card-text">{{ timeslot.number_of_attendees }} attending</p>
