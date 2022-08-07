@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Event, Timeslot
+from .models import Event, EventTimeslot
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
 class TimeslotInline(admin.TabularInline):
-    model = Timeslot
+    model = EventTimeslot
 
 
 @admin.register(Event)

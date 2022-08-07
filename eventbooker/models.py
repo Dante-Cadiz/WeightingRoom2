@@ -4,6 +4,8 @@ from datetime import datetime
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Draft'), (1, 'Upcoming'), (2, 'Past'))
+now = datetime.now
+
 #make events automatically become past events after the time has passed
 
 class Event(models.Model):
@@ -24,7 +26,7 @@ class Event(models.Model):
     #get_absolute_url method?
     
     
-class Timeslot(models.Model):
+class EventTimeslot(models.Model):
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
@@ -34,14 +36,18 @@ class Timeslot(models.Model):
     def number_of_attendees(self):
         return self.attendees.count()
     
+    def set_to_past(self):
+        if self.start_time < now:
+            self.event.status = 2
+    
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError("Start time must be before end time.")
     
-    #def show_timeslots(self):  change to a __str__ method?
-        #start = self.start_time.strftime("%-d/%-m, %H:%M")
-        #end = self.end_time.strftime("%H:%M")
-        #return f"{start} - {end}"
+    def show_timeslot(self):  
+        start = self.start_time.strftime("%-d/%-m, %H:%M")
+        end = self.end_time.strftime("%H:%M")
+        return f"{start} - {end}"
     
 
 class Booking(models.Model):
@@ -49,7 +55,7 @@ class Booking(models.Model):
                               related_name='event', blank=True)
     booker = models.ForeignKey(User, on_delete=models.CASCADE, 
                                related_name='booker', blank=True)
-    timeslot = models.ForeignKey(Timeslot, on_delete=models.CASCADE, 
+    timeslot = models.ForeignKey(EventTimeslot, on_delete=models.CASCADE, 
                                  related_name='timeslots', blank=True)
     
     #get_absolute_url method?
