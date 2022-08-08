@@ -2,7 +2,6 @@
 
 {% block content %}
 {% for timeslot in timeslots %}
-<h1></h1>
 {% if timeslot.number_of_attendees >= event.max_attendees %}
 <h1>Sorry, this event is fully booked</h1>
 {% elif user.is_authenticated %}
@@ -11,7 +10,7 @@
     {% if user_attending %}
 <button type="submit" class="btn btn-danger">{{ timeslot }} - Cancel your booking</button>
 {% else %}
-<button type="submit" class="btn btn-success">{{ timeslot.show_timeslots }} - Book</button>
+<button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
 {% endif %}
 </form>
 {% endif %}

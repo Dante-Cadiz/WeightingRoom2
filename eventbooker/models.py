@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 from cloudinary.models import CloudinaryField
 
 STATUS = ((0, 'Draft'), (1, 'Upcoming'), (2, 'Past'))
-now = datetime.now
+now = timezone.now()
 
 #make events automatically become past events after the time has passed
 
@@ -43,12 +45,10 @@ class EventTimeslot(models.Model):
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError("Start time must be before end time.")
-    
-    def show_timeslot(self):  
-        start = self.start_time.strftime("%-d/%-m, %H:%M")
-        end = self.end_time.strftime("%H:%M")
-        return f"{start} - {end}"
-    
+
+    def __str__(self):
+        return f"{str(self.start_time)} - {str(self.end_time)}"
+          
 
 class Booking(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, 
@@ -59,4 +59,6 @@ class Booking(models.Model):
                                  related_name='timeslots', blank=True)
     
     #get_absolute_url method?
+
+# maybe redesign entire thing with booking.create view 
 

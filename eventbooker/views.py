@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
+from datetime import datetime
 from .models import Event, EventTimeslot
 
 
@@ -16,7 +17,8 @@ class EventList(UpcomingEventMixin, generic.ListView):
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        timeslots = EventTimeslot.objects.filter(event=event)
+        timeslots = event.times.all().order_by("start_time")
+        #reintegrate user_attending value, maybe via mixin
         
         return render(
             request, "event.html", 
@@ -37,7 +39,7 @@ class EventView(UpcomingEventMixin, View):
 class TimeslotAttendance(UpcomingEventMixin, View):
     def post(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        
+        # reintegrate user attending value
         return HttpResponseRedirect(reverse('event', args=[slug]))
         
 
