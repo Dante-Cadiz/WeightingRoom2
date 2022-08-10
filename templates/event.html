@@ -5,9 +5,9 @@
 {% if timeslot.number_of_attendees >= event.max_attendees %}
 <h1>Sorry, this event is fully booked</h1>
 {% elif user.is_authenticated %}
-<form action="{% url 'booking' event.slug %}" method="POST" >
+<form action="{% url 'timeslot_booking' timeslot.id %}" method="POST" >
     {% csrf_token %}
-    {% if user_attending %}
+    {% if user.id in timeslot.attendees %}
 <button type="submit" class="btn btn-danger">{{ timeslot }} - Cancel your booking</button>
 {% else %}
 <button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
@@ -16,3 +16,5 @@
 {% endif %}
 {% endfor %}
 {% endblock content %}
+
+<!-- can format dates/times in templates manually if model method does not work-->

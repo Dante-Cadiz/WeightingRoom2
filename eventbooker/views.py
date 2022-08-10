@@ -17,17 +17,12 @@ class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         timeslots = event.times.all().order_by("start_time")
-        user_attending = False
-        for timeslot in timeslots:
-            if timeslot.attendees.filter(id=self.request.user.id).exists():
-                user_attending = True
         
         return render(
             request, "event.html", 
             {
                 "event": event,
                 "timeslots": timeslots,
-                "user_attending": user_attending,
             },)
 
 #class TimeslotView(View):
@@ -41,13 +36,19 @@ class EventView(UpcomingEventMixin, View):
 
 class TimeslotAttendance(UpcomingEventMixin, View):
     def post(self, request, slug, *args, **kwargs):
+        #fetch the Event and validate that that timeslot does actually belong to that event
+        timeslots = EventTimeslot.objects.all()
+        timeslot = get_object_or_404(timeslots, id=id)
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        #timeslots = event.times.all()
-        #if event.attendees.filter(id=request.user.id).exists():
-            #event.attendees.remove(request.user)
-       # else:
-           # event.attendees.add(request.user)
-        return HttpResponseRedirect(reverse('event', args=[slug]))
+        if timeslot.event != event: 
+            raise ValueError('Timeslot must relate to event')
+        #timeslot = another get_object_or_404 on the timeslot based on its ID
+        #for timeslot in timeslots no for loop
+        if timeslot.attendees.filter(id=request.user.id).exists():
+            timeslot.attendees.remove(request.user)
+        else:
+            timeslot.attendees.add(request.user)
+        return HttpResponseRedirect(reverse('event', args=[slug])) #change reverse to return something with the timeslot
         
 
 #class BookingView

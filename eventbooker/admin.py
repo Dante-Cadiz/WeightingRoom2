@@ -5,7 +5,7 @@ from django_summernote.admin import SummernoteModelAdmin
 
 class TimeslotInline(admin.TabularInline):
     model = EventTimeslot
-
+    exclude = ['user_attending',]
 
 @admin.register(Event)
 class EventAdmin(SummernoteModelAdmin):
