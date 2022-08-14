@@ -1,9 +1,12 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+<h2>{{ event }}</h2>
+<img class="card-img-top" src="{{ event.featured_image }}">
+{{ event.content }}
 {% for timeslot in timeslots %}
 {% if timeslot.number_of_attendees >= event.max_attendees %}
-<h1>Sorry, this event is fully booked</h1>
+<h2>Sorry, this timeslot is fully booked</h2>
 {% elif user.is_authenticated %}
 <form action="{% url 'timeslot_booking' timeslot.id %}" method="POST" >
     {% csrf_token %}
@@ -13,6 +16,8 @@
 <button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
 {% endif %}
 </form>
+{% else %}
+<p>Please log in or create an account in order to book events</p>
 {% endif %}
 {% endfor %}
 {% endblock content %}
