@@ -8,7 +8,7 @@
 {% if timeslot.number_of_attendees >= event.max_attendees %}
 <h2>Sorry, this timeslot is fully booked</h2>
 {% elif user.is_authenticated %}
-<form action="{% url 'timeslot_booking' timeslot.id %}" method="POST" >
+<form action="{% url 'timeslot_booking' event.slug timeslot.id %}" method="POST" >
     {% csrf_token %}
     {% if user.id in timeslot.attendees %}
 <button type="submit" class="btn btn-danger">{{ timeslot }} - Cancel your booking</button>

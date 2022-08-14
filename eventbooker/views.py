@@ -38,7 +38,7 @@ class TimeslotAttendance(UpcomingEventMixin, View):
     def post(self, request, slug, *args, **kwargs):
         #fetch the Event and validate that that timeslot does actually belong to that event
         timeslots = EventTimeslot.objects.all()
-        timeslot = get_object_or_404(timeslots, id=id)
+        timeslot = get_object_or_404(timeslots, id=self.kwargs['pk'])
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         if timeslot.event != event: 
             raise ValueError('Timeslot must relate to event')
