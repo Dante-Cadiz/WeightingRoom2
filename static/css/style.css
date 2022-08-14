@@ -2,8 +2,11 @@ body {
     font-family: 'Work Sans', sans-serif;
 }
 
-h1 {
+h1, h2 {
     font-family: 'Anton', sans-serif;
-    font-size: 78px;
     letter-spacing: 0.1em;
+}
+
+h1 {
+    font-size: 78px;
 }
