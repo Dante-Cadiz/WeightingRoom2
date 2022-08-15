@@ -24,7 +24,7 @@
       <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="">My Events</a>
+          <a class="nav-link" href="{% url 'my_bookings' %}">My Bookings</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for booking in bookings %}
+<h2>{{ booking.event }}</h2>
+<p>{{ booking.timeslot }}</p>
+{% endfor %}
+{% endblock content %}

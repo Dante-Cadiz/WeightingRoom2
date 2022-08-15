@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Event, EventTimeslot
+from .models import Event, EventTimeslot, Booking
 
 
 #restructure CBVs making a context mixin that covers all context
@@ -16,7 +16,7 @@ class EventList(UpcomingEventMixin, generic.ListView):
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        timeslots = event.times.all().order_by("start_time")
+        timeslots = EventTimeslot.objects.filter(event=event).order_by('start_time')
         
         return render(
             request, "event.html", 
@@ -28,30 +28,45 @@ class EventView(UpcomingEventMixin, View):
 #class TimeslotView(View):
     #def get(self, request, slug, *args, **kwargs):
         
-    #set the queryset to all upcoming timeslots
-    #then narrow queryset to all upcoming timeslots that have a foreign key of the selected event
-    #page displays list of all these timeslots looped in a for loop
-    #get selected event somehow  - by slug? th getobjector404 method
-
+    # can use the same method as in the post request to get the individual timeslots, with a boolean value as to whether the user is attending them?
+    # where is this returned to
+    # maybe have this as a timeslot content mixin?
 
 class TimeslotAttendance(UpcomingEventMixin, View):
-    def post(self, request, slug, *args, **kwargs):
-        #fetch the Event and validate that that timeslot does actually belong to that event
+
+    def get(self, request, slug, *args, **kwargs):
         timeslots = EventTimeslot.objects.all()
         timeslot = get_object_or_404(timeslots, id=self.kwargs['pk'])
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         if timeslot.event != event: 
             raise ValueError('Timeslot must relate to event')
-        #timeslot = another get_object_or_404 on the timeslot based on its ID
-        #for timeslot in timeslots no for loop
+        user_attending = False
+        if timeslot.attendees.filter(id=request.user.id).exists():
+            user_attending = True
+
+        return HttpResponseRedirect(reverse('event', args=[slug]))
+    
+    def post(self, request, slug, *args, **kwargs):
+        timeslots = EventTimeslot.objects.all()
+        timeslot = get_object_or_404(timeslots, id=self.kwargs['pk'])
+        event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
+        if timeslot.event != event: 
+            raise ValueError('Timeslot must relate to event')
+
         if timeslot.attendees.filter(id=request.user.id).exists():
             timeslot.attendees.remove(request.user)
         else:
             timeslot.attendees.add(request.user)
-        return HttpResponseRedirect(reverse('event', args=[slug])) #change reverse to return something with the timeslot
+        return HttpResponseRedirect(reverse('event', args=[slug]))
         
 
-#class BookingView
-#get user bookings by requesting user through link to bookings model
-# display time/event
-# add POST functionality to edit booking
+class BookingsView(View):
+
+    def get(self, request, *args, **kwargs):
+        bookings = Booking.objects.filter(booker=self.request.user.id).order_by('timeslot')
+        return render(
+            request, "my_bookings.html", 
+            {
+                "bookings": bookings,
+            },)
+    
