@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventTimeslot
+from .models import Event, EventTimeslot, Booking
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
@@ -13,3 +13,6 @@ class EventAdmin(SummernoteModelAdmin):
     summernote_fields = ('content')
     inlines = [TimeslotInline, ]
 
+@admin.register(Booking)
+class BookingAdmin(admin.ModelAdmin):
+    pass

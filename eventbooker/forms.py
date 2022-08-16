@@ -1,3 +1,8 @@
 from django import forms
+from .models import EventTimeslot
 
-#class BookingForm(forms.Form):
+#class TimeslotForm(forms.ModelForm):
+    #class Meta:
+        #model = EventTimeslot
+        #fields = "__all__"
+        

@@ -60,6 +60,9 @@ class Booking(models.Model):
                                related_name='booker', blank=True)
     timeslot = models.ForeignKey(EventTimeslot, on_delete=models.CASCADE, 
                                  related_name='timeslots', blank=True)
+
+    def __str__(self):
+        return f"Booking for {self.event} at {self.timeslot}"
     
     #get_absolute_url method?
 
