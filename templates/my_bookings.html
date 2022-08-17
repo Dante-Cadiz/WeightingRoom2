@@ -1,8 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for booking in bookings %}
-<h2>{{ booking.event }}</h2>
-<p>{{ booking.timeslot }}</p>
-{% endfor %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 mt-2 left">
+            <div class="row">
+                {% for booking in bookings %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+<h2 class="card-title">{{ booking.event }}</h2>
+<p class="card-text">{{ booking.timeslot }}</p>
+<a href="{% url 'event' booking.event.slug %}">View Event Detail</a>
+</div>
+</div>
+            </div>
+            {% endfor %}
+            </div>
+            </div>
+            </div>
+</div>
 {% endblock content %}
