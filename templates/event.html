@@ -3,17 +3,19 @@
 <h2>{{ event }}</h2>
 <img class="card-img-top" src="{{ event.featured_image }}">
 {{ event.content }}
+{% for booking in bookings %}
+<form action="" method="POST" >
+    {% csrf_token %}   
+    <button type="submit" class="btn btn-danger">{{ booking }} - Cancel</button>
+</form>
+{% endfor %}
 {% for timeslot in timeslots %}
 {% if timeslot.number_of_attendees >= event.max_attendees %}
 <h2>{{ timeslot }} - Sorry, this timeslot is fully booked</h2>
 {% elif user.is_authenticated %}
 <form action="{% url 'timeslot_booking' event.slug timeslot.id %}" method="POST" >
-    {% csrf_token %}
-    {% if user_attending %}
-<button type="submit" class="btn btn-danger">{{ timeslot }} - Cancel your booking</button>
-{% else %}
+{% csrf_token %}   
 <button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
-{% endif %}
 </form>
 {% else %}
 <p>Please log in or create an account in order to book events</p>

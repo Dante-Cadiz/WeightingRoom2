@@ -18,14 +18,14 @@ class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
         timeslots = EventTimeslot.objects.filter(event=event).order_by('start_time')
-        #form = TimeslotForm()
+        bookings = Booking.objects.filter(event=event, booker=self.request.user)
         
         return render(
             request, "event.html", 
             {
                 "event": event,
                 "timeslots": timeslots,
-                #"form": form,
+                "bookings": bookings,
             },)
 
 #class TimeslotView(View):
@@ -46,10 +46,10 @@ class TimeslotAttendance(UpcomingEventMixin, View):
 
         if timeslot.attendees.filter(id=request.user.id).exists():
             timeslot.attendees.remove(request.user)
-            #Booking.objects.
+            Booking.objects.filter(event=event, booker=self.request.user, timeslot=timeslot).delete()
         else:
             timeslot.attendees.add(request.user)
-            #Booking.objects.create()
+            Booking.objects.create(event=event, booker=self.request.user, timeslot=timeslot)
         return HttpResponseRedirect(reverse('event', args=[slug]))
 
         #maybe restructure entire thing around the bookings model, get bookings where event=event and user=self.request.user simultaneously
