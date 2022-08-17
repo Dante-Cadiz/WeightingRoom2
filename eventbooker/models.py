@@ -34,7 +34,6 @@ class EventTimeslot(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name='times', null=True)
     attendees = models.ManyToManyField(User, blank=True)
-    user_attending = models.BooleanField(default=False)
                                        
     def number_of_attendees(self):
         return self.attendees.count()
