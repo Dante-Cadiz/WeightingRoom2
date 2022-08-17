@@ -27,7 +27,7 @@ class EventView(UpcomingEventMixin, View):
             },)
 
 
-class TimeslotAttendance(UpcomingEventMixin, View):
+class MakeBooking(UpcomingEventMixin, View):
     
     def post(self, request, slug, *args, **kwargs):
         timeslots = EventTimeslot.objects.all()
@@ -36,20 +36,27 @@ class TimeslotAttendance(UpcomingEventMixin, View):
         if timeslot.event != event: 
             raise ValueError('Timeslot must relate to event')
 
-        if timeslot.attendees.filter(id=request.user.id).exists():
-            timeslot.attendees.remove(request.user)
-            Booking.objects.filter(event=event, booker=self.request.user, 
-                                   timeslot=timeslot).delete()
-        else:
-            timeslot.attendees.add(request.user)
-            Booking.objects.create(event=event, booker=self.request.user, timeslot=timeslot)
+        timeslot.attendees.add(request.user)
+        Booking.objects.create(event=event, booker=self.request.user, timeslot=timeslot)
         return HttpResponseRedirect(reverse('event', args=[slug]))
+
+class CancelBooking(UpcomingEventMixin, View):
+    def post(self, request, slug, *args, **kwargs):
+        bookings = Booking.objects.all()
+        booking = get_object_or_404(bookings, id=self.kwargs['pk'])
+        timeslot = booking.timeslot
+        timeslot.attendees.remove(self.request.user)
+        booking.delete()
+
+        return HttpResponseRedirect(reverse('event', args=[slug]))
+
 
 
 class BookingsView(View):
 
     def get(self, request, *args, **kwargs):
-        bookings = Booking.objects.filter(booker=self.request.user.id).order_by('timeslot')
+        bookings = Booking.objects.filter(
+                booker=self.request.user.id).order_by('timeslot')
         return render(
             request, "my_bookings.html", 
             {
