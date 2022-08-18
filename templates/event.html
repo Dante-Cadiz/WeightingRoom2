@@ -3,24 +3,24 @@
 <h2>{{ event }}</h2>
 <img class="card-img-top" src="{{ event.featured_image }}">
 {{ event.content }}
+{% if user.is_authenticated %}
 {% for booking in bookings %}
 <form action="{% url 'cancel_booking' event.slug booking.id %}" method="POST" >
-    {% csrf_token %}   
-    <button type="submit" class="btn btn-danger">{{ booking }} - Cancel</button>
+   {% csrf_token %}   
+   <button type="submit" class="btn btn-danger">{{ booking }} - Cancel</button>
 </form>
 {% endfor %}
 {% for timeslot in timeslots %}
 {% if timeslot.number_of_attendees >= event.max_attendees %}
 <h2>{{ timeslot }} - Sorry, this timeslot is fully booked</h2>
-{% elif user.is_authenticated %}
+{% else %}
 <form action="{% url 'make_booking' event.slug timeslot.id %}" method="POST" >
-{% csrf_token %}   
-<button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
+   {% csrf_token %}   
+   <button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
 </form>
+{% endif %}
+{% endfor %}
 {% else %}
 <p>Please log in or create an account in order to book events</p>
 {% endif %}
-{% endfor %}
 {% endblock content %}
-
-<!-- can format dates/times in templates manually if model method does not work-->

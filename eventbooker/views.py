@@ -13,18 +13,30 @@ class EventList(UpcomingEventMixin, generic.ListView):
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
-        timeslots = EventTimeslot.objects.filter(event=event).order_by(
+        if self.request.user.is_authenticated:
+            timeslots = EventTimeslot.objects.filter(event=event).order_by(
                      'start_time').exclude(attendees=self.request.user)
-        bookings = Booking.objects.filter(event=event, 
-                                          booker=self.request.user)
+            bookings = Booking.objects.filter(event=event, 
+                                              booker=self.request.user)
         
-        return render(
-            request, "event.html", 
-            {
-                "event": event,
-                "timeslots": timeslots,
-                "bookings": bookings,
-            },)
+            return render(
+                request, "event.html", 
+                {
+                    "event": event,
+                    "timeslots": timeslots,
+                    "bookings": bookings,
+                },)
+        
+        else:
+            timeslots = EventTimeslot.objects.filter(event=event).order_by(
+                     'start_time')
+            
+            return render(
+                request, "event.html", 
+                {
+                    "event": event,
+                    "timeslots": timeslots,
+                },)
 
 
 class MakeBooking(UpcomingEventMixin, View):
