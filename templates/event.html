@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>{{ event }}</h2>
-<img class="card-img-top" src="{{ event.featured_image }}">
+<img class="card-img-top" src="{{ event.featured_image.url }}">
 {{ event.content }}
 {% if user.is_authenticated %}
 {% for booking in bookings %}
@@ -22,5 +22,8 @@
 {% endfor %}
 {% else %}
 <p>Please log in or create an account in order to book events</p>
+{% for timeslot in timeslots %}
+{{timeslot}}
+{% endfor %}
 {% endif %}
 {% endblock content %}

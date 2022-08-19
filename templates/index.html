@@ -1,46 +1,33 @@
 {% extends "base.html" %}
-
 {% block content %}
-
-
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-12 mt-2 left">
-            <div class="row">
+   <div class="row">
+      <div class="col-sm-12 mt-2 left">
+         <div class="row">
             {% for event in event_list %}
             <div class="col-md-6">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="image-container">
-                            <!-- add logic to determine which image is displayed here, using the featured image url from the Event model -->
-                            <img class="card-img-top" src="{{ event.featured_image }}">
-                        </div>
-                        <a href="{% url 'event' event.slug %}">
+               <div class="card mb-3">
+                  <div class="card-body">
+                     <div class="image-container">
+                        <img class="card-img-top" src="{{ event.featured_image.url }}">
+                     </div>
+                     <a href="{% url 'event' event.slug %}">
                         <h2 class="card-title">{{ event.title }}</h2>
+                     </a>
+                     <ul class="list-group list-group-flush">
                         {% for timeslot in event.times.all %}
-                        <p class="card-text"> {{ timeslot }} </p>
+                        <li class="list-group-item"> {{ timeslot }} </li>
                         {% endfor %}
+                     </ul>
+                     <a href="{% url 'event' event.slug %}">
                         <p class="card-text">Book your spot!</p>
-                    </a>
-                        
-
-
-
-
-
-                        <!-- show how many currently attending/max possible -->
-                        <!-- link to book event here -->
-                    </div>
-                </div>
+                     </a>
+                  </div>
+               </div>
             </div>
             {% endfor %}
-        </div>
-        </div>
-    </div>
+         </div>
+      </div>
+   </div>
 </div>
-
-
-
-
-
 {% endblock content %}
