@@ -47,11 +47,44 @@
       <h1 class="text-uppercase text-center">
          Weighting <i class="fa fa-dumbbell" aria-hidden="true"></i> Room
       </h1>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6 offset-md-3">
+               {% for message in messages %}
+               <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>
+               {% endfor %}
+            </div>
+         </div>
+
+      </div>
       <main>
          {% block content %}
          {% endblock content %}
       </main>
       <footer class="footer">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-sm-12 mt-3 mb-3 left">
+                  <div class="row">
+                     <div class="col-sm-3 ml-auto">
+                        <i class="fab fa-facebook"></i>
+                     </div>
+                     <div class="col-sm-3 ml-auto">
+                        <i class="fab fa-twitter"></i>
+                     </div>
+                     <div class="col-sm-3 ml-auto">
+                        <i class="fab fa-instagram"></i>
+                     </div>
+                     <div class="col-sm-3 ml-auto">
+                        <i class="fab fa-youtube"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
       </footer>
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
