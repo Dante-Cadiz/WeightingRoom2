@@ -8,7 +8,6 @@ from cloudinary.models import CloudinaryField
 STATUS = ((0, 'Draft'), (1, 'Upcoming'), (2, 'Past'))
 now = timezone.now()
 
-#make events automatically become past events after the time has passed
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
@@ -65,5 +64,13 @@ class Booking(models.Model):
     
     #get_absolute_url method?
 
-# maybe redesign entire thing with booking.create view 
+class Comment(models.Model):
+    name = models.CharField(max_length=30, default='Your name')
+    content = models.TextField()
+    event = models.ForeignKey(Event, on_delete=models.CASCADE,
+                              related_name="comments")
+    created_on = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ["created_on"]

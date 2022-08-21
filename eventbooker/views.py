@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Event, EventTimeslot, Booking
+from .forms import CommentForm
 
 
 class UpcomingEventMixin(object):
@@ -13,6 +14,7 @@ class EventList(UpcomingEventMixin, generic.ListView):
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
         event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
+        comments = event.comments.filter(approved=True).order_by("-created_on")
         if self.request.user.is_authenticated:
             timeslots = EventTimeslot.objects.filter(event=event).order_by(
                      'start_time').exclude(attendees=self.request.user)
@@ -23,8 +25,10 @@ class EventView(UpcomingEventMixin, View):
                 request, "event.html", 
                 {
                     "event": event,
+                    "comments": comments,
                     "timeslots": timeslots,
                     "bookings": bookings,
+                    "comment_form": CommentForm()
                 },)
         
         else:
@@ -35,6 +39,7 @@ class EventView(UpcomingEventMixin, View):
                 request, "event.html", 
                 {
                     "event": event,
+                    "comments": comments,
                     "timeslots": timeslots,
                 },)
 
