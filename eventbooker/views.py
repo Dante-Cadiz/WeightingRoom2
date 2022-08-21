@@ -70,6 +70,7 @@ class EventView(UpcomingEventMixin, View):
                     "comment_form": comment_form,
                 },)
 
+#class EditComment/DeleteComment()
 
 
 class MakeBooking(UpcomingEventMixin, View):
