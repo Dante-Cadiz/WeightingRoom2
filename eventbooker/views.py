@@ -42,6 +42,34 @@ class EventView(UpcomingEventMixin, View):
                     "comments": comments,
                     "timeslots": timeslots,
                 },)
+    
+    def post(self, request, slug, *args, **kwargs):
+        event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
+        comments = event.comments.filter(approved=True).order_by("-created_on")
+        timeslots = EventTimeslot.objects.filter(event=event).order_by(
+                     'start_time').exclude(attendees=self.request.user)
+        bookings = Booking.objects.filter(event=event, 
+                                        booker=self.request.user)
+        
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment_form.instance.name = request.user.username
+            comment = comment_form.save(commit=False)
+            comment.event = event
+            comment.save()
+        else:
+            comment_form = CommentForm()
+        
+        return render(
+                request, "event.html", 
+                {
+                    "event": event,
+                    "comments": comments,
+                    "timeslots": timeslots,
+                    "bookings": bookings,
+                    "comment_form": comment_form,
+                },)
+
 
 
 class MakeBooking(UpcomingEventMixin, View):

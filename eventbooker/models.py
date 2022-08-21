@@ -65,7 +65,7 @@ class Booking(models.Model):
     #get_absolute_url method?
 
 class Comment(models.Model):
-    name = models.CharField(max_length=30, default='Your name')
+    name = models.CharField(max_length=30, default='Username')
     content = models.TextField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name="comments")
