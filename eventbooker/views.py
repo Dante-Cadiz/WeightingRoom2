@@ -28,6 +28,7 @@ class EventView(UpcomingEventMixin, View):
                     "comments": comments,
                     "timeslots": timeslots,
                     "bookings": bookings,
+                    "user_commented": False,
                     "comment_form": CommentForm()
                 },)
         
@@ -68,6 +69,7 @@ class EventView(UpcomingEventMixin, View):
                     "timeslots": timeslots,
                     "bookings": bookings,
                     "comment_form": comment_form,
+                    "user_commented": True,
                 },)
 
 #class EditComment/DeleteComment()

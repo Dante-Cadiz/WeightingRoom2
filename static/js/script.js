@@ -8,3 +8,8 @@ if (right_height < left_height) {
     $("#column-left").height($("#column-right").height());
 }
 
+setTimeout(function () {
+    let messages = document.getElementById('message');
+    let alert = new bootstrap.Alert(messages);
+    alert.close();
+}, 2500);
