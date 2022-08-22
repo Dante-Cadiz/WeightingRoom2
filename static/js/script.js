@@ -8,4 +8,3 @@ if (right_height < left_height) {
     $("#column-left").height($("#column-right").height());
 }
 
-

@@ -62,7 +62,6 @@ class Booking(models.Model):
     def __str__(self):
         return f"You have booked this event at {self.timeslot}"
     
-    #get_absolute_url method?
 
 class Comment(models.Model):
     name = models.CharField(max_length=30, default='Username')

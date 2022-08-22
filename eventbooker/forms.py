@@ -8,3 +8,4 @@ class CommentForm(forms.ModelForm):
         widgets = {
             "content": forms.TextInput(attrs={'title': 'Your comment', 'required': True})
         }
+# fix widget to display larger comment box - maybe integrate Crispy forms
