@@ -9,7 +9,7 @@ if (right_height < left_height) {
 }
 
 setTimeout(function () {
-    let messages = document.getElementById('message');
+    let messages = $('.message');
     let alert = new bootstrap.Alert(messages);
     alert.close();
-}, 2500);
+}, 3000);

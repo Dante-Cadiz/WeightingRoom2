@@ -55,6 +55,7 @@
 ## Code Validation
 
 ### HTML Validation and Beautification
+freeformatter.com
 
 ### CSS Validation
 
