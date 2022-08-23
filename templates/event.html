@@ -36,7 +36,7 @@
                      {% else %}
                      <form action="{% url 'make_booking' event.slug timeslot.id %}" method="POST" >
                         {% csrf_token %}   
-                        <button type="submit" class="btn btn-success">{{ timeslot }} - Book</button>
+                        <button type="submit" class="btn btn-primary">{{ timeslot }} - Book</button>
                      </form>
                      {% endif %}
                      {% endfor %}
@@ -49,12 +49,35 @@
                      {% endif %}
                      <div class="border-primary-rounded-pill mt-3">
                      {% for comment in comments %}
+                     {% if comment in user_comments %}
+                     <div class="mt-3 ml-auto">
+                        <strong>
+                           You wrote:
+                        </strong>
+                        "{{comment.content}}"
+                        <div class="small">{{comment.created_on}}</div>
+                        <div class="d-flex flex-row-reverse">
+                           <form action="{% url 'delete_comment' event.slug comment.id %}" method="POST" >
+                              {% csrf_token %}   
+                           <button class="btn btn-secondary delete-comment" >Delete</button>
+                           </form>
+                           <button class="btn btn-primary edit-comment">Edit</a>
+                     </div>
+                     <form method="post" id="edit-form">
+                        {{ comment_form }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button> 
+                     </form>
+                     </div>
+                     {% else %}
                      <div class="mt-3 ml-auto">
                         <strong>
                            {{comment.name}}:
                         </strong>
                         "{{comment.content}}"
+                        <div class="small">{{comment.created_on}}</div>
                      </div>
+                     {% endif %}
                      {% endfor %}
                      </div>
                      {% if user.is_authenticated %}
