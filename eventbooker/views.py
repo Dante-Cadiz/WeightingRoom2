@@ -77,24 +77,6 @@ class EventView(UpcomingEventMixin, View):
                     "user_commented": True,
                 },)
 
-#class EditComment(UpcomingEventMixin, View):
-
-    #def post(self, request, slug, *args, **kwargs):
-        #comments = 
-        #comment = get_object_or_404(user=self.request.user)
-        #comment.content
-        #edit_comment_form = EditCommentForm(data=request.POST)
-        #if comment_form.is_valid():
-            #comment_form.instance.name = request.user.username
-            #comment = comment_form.save(commit=False)
-            #comment.event = event
-            #comment.save()
-            #messages.add_message(request, messages.SUCCESS, "Comment edited and awaiting moderation")
-        #else:
-            #comment_form = CommentForm()
-        
-        #return HttpResponseRedirect(reverse('event', args=[slug]))
-
 class MakeBooking(UpcomingEventMixin, View):
     
     def post(self, request, slug, *args, **kwargs):
@@ -132,6 +114,24 @@ class BookingsView(View):
             {
                 "bookings": bookings,
             },)
+
+#class EditComment(UpcomingEventMixin, View):
+
+    #def post(self, request, slug, *args, **kwargs):
+        #comments = 
+        #comment = get_object_or_404(user=self.request.user)
+        #comment.content
+        #edit_comment_form = EditCommentForm(data=request.POST)
+        #if comment_form.is_valid():
+            #comment_form.instance.name = request.user.username
+            #comment = comment_form.save(commit=False)
+            #comment.event = event
+            #comment.save()
+            #messages.add_message(request, messages.SUCCESS, "Comment edited and awaiting moderation")
+        #else:
+            #comment_form = CommentForm()
+        
+        #return HttpResponseRedirect(reverse('event', args=[slug]))
     
 class DeleteComment(UpcomingEventMixin, View):
 

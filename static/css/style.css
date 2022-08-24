@@ -7,10 +7,25 @@ h1, h2, h3, h4, h5 {
     letter-spacing: 0.1em;
 }
 
-h1 {
-    font-size: 78px;
-}
-
 #edit-form {
     display: none;
 }
+
+.nav-link {
+    color: #fff
+}
+
+.nav-link:hover,
+.nav-link:active {
+    color: inherit;
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 600px) {
+    h1 {
+        font-size: 78px;
+    }
+}
+
+
+
