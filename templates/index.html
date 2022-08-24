@@ -12,7 +12,7 @@
                         <img class="card-img-top" src="{{ event.featured_image.url }}">
                      </div>
                      <a href="{% url 'event' event.slug %}">
-                        <h2 class="card-title">{{ event.title }}</h2>
+                        <h2 class="card-title my-2">{{ event.title }}</h2>
                      </a>
                      <ul class="list-group list-group-flush">
                         {% for timeslot in event.times.all %}
@@ -20,7 +20,7 @@
                         {% endfor %}
                      </ul>
                      <a href="{% url 'event' event.slug %}">
-                        <p class="card-text">Book your spot!</p>
+                        <p class="card-text m-2">Book your spot!</p>
                      </a>
                   </div>
                </div>

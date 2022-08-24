@@ -5,9 +5,7 @@ class CommentForm(forms.ModelForm):
     class Meta: 
         model = Comment
         fields = ('content',)
-        widgets = {
-            "content": forms.TextInput(attrs={'title': 'Your comment', 'required': True})
-        }
+        content = forms.CharField(label="", help_text="", widget=forms.Textarea())
 
 #class EditCommentForm(forms.ModelForm):
     #class Meta:

@@ -16,5 +16,11 @@ setTimeout(function () {
 }, 5000);
 
 $(".edit-comment").click(function(){
-    $("#edit-form").toggle();
+    $("#edit-form").show();
+    $("#your-comment").hide();
+});
+
+$(".discard").click(function(){
+    $("#edit-form").hide();
+    $("#your-comment").show();
 });

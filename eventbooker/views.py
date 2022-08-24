@@ -115,28 +115,29 @@ class BookingsView(View):
                 "bookings": bookings,
             },)
 
-#class EditComment(UpcomingEventMixin, View):
+class EditComment(UpcomingEventMixin, View):
 
-    #def post(self, request, slug, *args, **kwargs):
-        #comments = 
-        #comment = get_object_or_404(user=self.request.user)
-        #comment.content
-        #edit_comment_form = EditCommentForm(data=request.POST)
-        #if comment_form.is_valid():
-            #comment_form.instance.name = request.user.username
-            #comment = comment_form.save(commit=False)
-            #comment.event = event
-            #comment.save()
-            #messages.add_message(request, messages.SUCCESS, "Comment edited and awaiting moderation")
-        #else:
-            #comment_form = CommentForm()
+    def post(self, request, slug, *args, **kwargs):
+        comments = Comment.objects.filter(name=self.request.user.username,
+                                          approved=True)
+        comment = get_object_or_404(comments, id=self.kwargs['pk'])
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment_form.instance.name = request.user.username
+            comment = comment_form.save(commit=False)
+            comment.event = event
+            comment.save()
+            messages.add_message(request, messages.SUCCESS, "Comment edited and awaiting moderation")
+        else:
+            comment_form = CommentForm()
         
-        #return HttpResponseRedirect(reverse('event', args=[slug]))
+        return HttpResponseRedirect(reverse('event', args=[slug]))
     
 class DeleteComment(UpcomingEventMixin, View):
 
     def post(self, request, slug, *args, **kwargs):
-        comments = Comment.objects.filter(name=self.request.user.username)
+        comments = Comment.objects.filter(name=self.request.user.username, 
+                                          approved=True)
         comment = get_object_or_404(comments, id=self.kwargs['pk'])
         comment.delete()
         messages.add_message(request, messages.SUCCESS, "Comment deleted")

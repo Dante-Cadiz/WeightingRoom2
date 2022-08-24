@@ -28,8 +28,8 @@
             aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="navbar-nav ml-auto">
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarLinks">
+            <ul class="navbar-nav">
                {% if user.is_authenticated %}
                <li class="nav-item">
                   <a class="nav-link" href="{% url 'my_bookings' %}">My Bookings</a>
@@ -49,8 +49,7 @@
          </div>
       </div>
       </nav>
-      <!-- title design -->
-      <h1 class="text-uppercase text-center">
+      <h1 class="text-uppercase text-center mt-2">
          Weighting <i class="fa fa-dumbbell" aria-hidden="true"></i> Room
       </h1>
       <div class="container">
@@ -70,21 +69,22 @@
          {% block content %}
          {% endblock content %}
       </main>
-      <!-- make the footer look nice, enlarge the icons, format them into a ul as list items maybe, also lock the footer to the bottom of the page-->
       <footer class="d-flex flex-wrap justify-content-between bg-primary align-items-center py-3 mt-auto">
          <div class="col-md-4 d-flex align-items-center mx-2">
            <span class="text-white">Weighting Room, a Django project by Dante Cadiz</span>
-           <i class="fa fa-dumbbell mx-2 text-white" aria-hidden="true"></i>
+           <a href="{% url 'home' %}">
+           <i class="fa fa-dumbbell fa-lg mx-2 text-white" aria-hidden="true"></i>
+         </a>
          </div>
          <div class="col-md-4 align-items-center mt-2">
             <div class="text-white mx-2">Tel: 0123 456 7890</div>
             <div class="text-white mx-2">Email: info@weightingroom.com</div>
          </div>
      
-         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex mt-2">
-           <li class="mx-2"><a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook"><i class="fab fa-facebook text-white mx-2"></i></a></li>
-           <li class="mx-2"><a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Visit our Twitter"><i class="fab fa-twitter text-white mx-2"></i></a></li>
-           <li class="mx-2"><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram"><i class="fab fa-instagram text-white mx-2"></i></a></li>
+         <ul class="nav col-md-2 justify-content-end list-unstyled d-flex mt-2">
+           <li class="mx-2"><a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook"><i class="fab fa-facebook fa-lg text-white social mx-2"></i></a></li>
+           <li class="mx-2"><a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Visit our Twitter"><i class="fab fa-twitter fa-lg text-white social mx-2"></i></a></li>
+           <li class="mx-2"><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram"><i class="fab fa-instagram fa-lg text-white social mx-2"></i></a></li>
          </ul>
        </footer>
       <script src="{% static 'js/script.js' %}"></script>

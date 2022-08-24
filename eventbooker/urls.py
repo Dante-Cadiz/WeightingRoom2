@@ -9,8 +9,8 @@ urlpatterns = [
          name='make_booking'),
     path('cancel_booking/<slug:slug>/<int:pk>', views.CancelBooking.as_view(),
          name='cancel_booking'),
-    #path('edit_comment/<slug:slug>/<int:pk>', views.EditComment.as_view(),
-        # name='edit_comment'),
+    path('edit_comment/<slug:slug>/<int:pk>', views.EditComment.as_view(),
+         name='edit_comment'),
     path('delete_comment/<slug:slug>/<int:pk>', views.DeleteComment.as_view(),
          name='delete_comment'),
 ]
