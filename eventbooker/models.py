@@ -60,7 +60,7 @@ class Booking(models.Model):
                                  related_name='timeslots', blank=True)
 
     def __str__(self):
-        return f"You have booked this event at {self.timeslot}"
+        return f"{self.timeslot}"
     
 
 class Comment(models.Model):

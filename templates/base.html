@@ -57,8 +57,9 @@
          <div class="row">
             <div class="col-md-6 offset-md-3">
                {% for message in messages %}
-               <div class="alert {{ message.tags }} alert-dismissible fade message" role="alert">
+               <div class="alert {{ message.tags }} alert-dismissible message" role="alert">
                   {{ message | safe }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                </div>
                {% endfor %}
             </div>
@@ -71,19 +72,19 @@
       </main>
       <!-- make the footer look nice, enlarge the icons, format them into a ul as list items maybe, also lock the footer to the bottom of the page-->
       <footer class="d-flex flex-wrap justify-content-between bg-primary align-items-center py-3 mt-auto">
-         <div class="col-md-4 d-flex align-items-center">
+         <div class="col-md-4 d-flex align-items-center mx-2">
            <span class="text-white">Weighting Room, a Django project by Dante Cadiz</span>
-           <i class="fa fa-dumbbell" aria-hidden="true"></i>
+           <i class="fa fa-dumbbell mx-2 text-white" aria-hidden="true"></i>
          </div>
-         <div class="col-md-4 d-flex align-items-center">
-            <div class="text-white">Tel: 0123 456 7890</div>
-            <div class="text-white">Email: info@weightingroom.com</div>
+         <div class="col-md-4 align-items-center mt-2">
+            <div class="text-white mx-2">Tel: 0123 456 7890</div>
+            <div class="text-white mx-2">Email: info@weightingroom.com</div>
          </div>
      
-         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-           <li class="ms-3"><a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook"><i class="fab fa-facebook text-white mx-2"></i></a></li>
-           <li class="ms-3"><a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Visit our Twitter"><i class="fab fa-twitter text-white mx-2"></i></a></li>
-           <li class="ms-3"><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram"><i class="fab fa-instagram text-white mx-2"></i></a></li>
+         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex mt-2">
+           <li class="mx-2"><a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook"><i class="fab fa-facebook text-white mx-2"></i></a></li>
+           <li class="mx-2"><a href="https://www.twitter.com" target="_blank" rel="noopener" aria-label="Visit our Twitter"><i class="fab fa-twitter text-white mx-2"></i></a></li>
+           <li class="mx-2"><a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram"><i class="fab fa-instagram text-white mx-2"></i></a></li>
          </ul>
        </footer>
       <script src="{% static 'js/script.js' %}"></script>
