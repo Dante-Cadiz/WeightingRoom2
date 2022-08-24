@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
       <script src="https://kit.fontawesome.com/487339bde6.js" crossorigin="anonymous"></script>
       <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans&display=swap" rel="stylesheet">
    </head>
-   <body>
+   <body class="d-flex flex-column h-100 main-bg">
       <nav class="navbar navbar-dark bg-primary navbar-expand-sm">
          <div class="container-fluid">
             <a class="nav-link navbar-brand" href="{% url 'home' %}">
@@ -70,7 +70,7 @@
          {% endblock content %}
       </main>
       <!-- make the footer look nice, enlarge the icons, format them into a ul as list items maybe, also lock the footer to the bottom of the page-->
-      <footer class="d-flex flex-wrap justify-content-between bg-primary align-items-center py-3 mt-3">
+      <footer class="d-flex flex-wrap justify-content-between bg-primary align-items-center py-3 mt-auto">
          <div class="col-md-4 d-flex align-items-center">
            <span class="text-white">Weighting Room, a Django project by Dante Cadiz</span>
            <i class="fa fa-dumbbell" aria-hidden="true"></i>
