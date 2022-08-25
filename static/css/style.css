@@ -16,7 +16,7 @@ textarea {
     width: 80%;
 }
 
-#edit-form {
+.edit-user-comment-wrapper {
     display: none;
 }
 

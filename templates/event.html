@@ -49,8 +49,8 @@
                      {% endif %}
                      <div class="overflow-auto mt-3 comments-div">
                      {% for comment in comments %}
-                     {% if comment in user_comments %}
-                     <div class="mt-3 ml-auto" id="your-comment">
+                     {% if comment.name == user.username %}
+                     <div class="mt-3 ml-auto user-comment" >
                         <strong>
                            You wrote:
                         </strong>
@@ -63,12 +63,14 @@
                            </form>
                            <button class="btn btn-primary edit-comment">Edit</a>
                      </div>
-                     <form method="post" id="edit-form">
+                     <div class="edit-user-comment-wrapper">
+                     <form method="post">
                         {{ comment_form }}
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Submit</button> 
-                        <button type="submit" class="btn btn-secondary discard">Discard</button> 
+                        <button type="submit" class="btn btn-primary">Submit</button>  
                      </form>
+                     <button class="btn btn-secondary discard">Discard</button>
+                     </div>
                      </div>
                      {% else %}
                      <div class="mt-3 ml-auto">

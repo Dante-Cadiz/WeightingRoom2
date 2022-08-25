@@ -11,6 +11,7 @@ class UpcomingEventMixin(object):
 
 class EventList(UpcomingEventMixin, generic.ListView):
     template_name = "index.html"
+    paginate_by = 6
 
 class EventView(UpcomingEventMixin, View):
     def get(self, request, slug, *args, **kwargs):
@@ -21,7 +22,6 @@ class EventView(UpcomingEventMixin, View):
                      'start_time').exclude(attendees=self.request.user)
             bookings = Booking.objects.filter(event=event, 
                                               booker=self.request.user)
-            user_comments = comments.filter(name=self.request.user.username)
         
             return render(
                 request, "event.html", 
@@ -31,7 +31,6 @@ class EventView(UpcomingEventMixin, View):
                     "timeslots": timeslots,
                     "bookings": bookings,
                     "user_commented": False,
-                    "user_comments": user_comments,
                     "comment_form": CommentForm()
                 },)
         
@@ -116,6 +115,13 @@ class BookingsView(View):
             },)
 
 class EditComment(UpcomingEventMixin, View):
+
+    def get(self, request, slug, *args, **kwargs):
+        comments = Comment.objects.filter(name=self.request.user.username,
+                                          approved=True)
+        comment = get_object_or_404(comments, id=self.kwargs['pk'])
+        # render a template of the comment form
+        
 
     def post(self, request, slug, *args, **kwargs):
         comments = Comment.objects.filter(name=self.request.user.username,

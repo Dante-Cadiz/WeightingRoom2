@@ -25,8 +25,9 @@ class TestAllModels(TestCase):
         timeslot = EventTimeslot.objects.get(id=1)
         self.assertEqual(timeslot.number_of_attendees(), 5)
     
-    def test_clean_method(self):
+    def test_time_validation(self):
         timeslot2 = EventTimeslot.objects.get(id=2)
+        # TODO: Verify the exact error message.
         with self.assertRaises(ValidationError):
             timeslot2.clean()
     
