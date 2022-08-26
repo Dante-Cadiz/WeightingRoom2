@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var right_height = $("#column-right").height()
-var left_height = $("#column-left").height()
+    var right_height = $("#column-right").height();
+var left_height = $("#column-left").height();
 
 
 if (right_height < left_height) {

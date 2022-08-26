@@ -27,7 +27,7 @@ I also kept the user stories in a Google Sheet that held the development tasks a
 
 ### Wireframes and ERD
 
-Mobile and desktop wireframes for each web page within the application were initially drawn using pen and paper, and subsequently created and developed on using Balsamiq. Some aspects of the initial wireframes are not exactly replicated in the finished application, as requirements and design views change during development.
+Mobile and desktop wireframes for each web page within the application were initially drawn using pen and paper, and subsequently created and developed on using [Balsamiq](https://balsamiq.com/. Some aspects of the initial wireframes are not exactly replicated in the finished application, as requirements and design views change during development.
 
 ![Weighting Room mobile wireframe](https://i.imgur.com/6o3f3XX.png)
 ![Weighting Room desktop wireframe](https://i.imgur.com/7xxEFwS.png)
@@ -46,7 +46,7 @@ I used Lucidchart to put together an Entity Relationship Diagram that showed how
 
 ### Home Page - Event List
 
-- The site's home page advertises the gym's upcoming events to users in a list which paginates. 
+- The site's home page advertises the gym's upcoming events to users in a list which paginates. The event's timeslots are shown. From there, users can click on individual events which take them 
 
 ### User login and account creation
 
@@ -104,6 +104,7 @@ W3C HTML Validator
 PEP8 compliance
 
 ### JavaScript Validation
+- No errors were found when passing through the official [JSHint validator](https://www.jshint.com)
 
 ## Testing
 
@@ -112,7 +113,7 @@ PEP8 compliance
 - This project has partially implemented automated unit testing, namely for the models and resolution of URLs.
 - This unit testing was created using Django's TestCase class, a subclass of Python's unittest.
 - All data models and their inbuilt class methods are tested, with all tests passing.
- Due to time constraints, 
+- Due to time constraints, automated testing for the views and rendering of templates is incomplete
 
 ### Lighthouse
 
@@ -126,6 +127,26 @@ Reported issues:
  -
 
 ## Noteworthy Bugs
+
+### Site running/loading content very slowly
+
+- Unfixed
+- Attempted fixes: Reducing sizes of uploaded images using [TinyPNG](https://tinypng.com/)
+Moving some script tags in base.html to the head of the document to ensure they are immediately loaded
+- Probable cause - project loading large/excessive amount of template tags 
+
+### Event timeslot booking all timeslots related to event as opposed to a specific single one
+
+- Bug encountered early in development; when attempting to book onesself into a specific event timeslot as a user, the actual outcome was that the user would book themself into all timeslots for the event, or if they were already booked into another timeslot, cancel that existing booking.
+
+- Fix eventually involved restructuring model concept totally to have timeslots as separate models to their event, and linking them to their respective event through a ForeignKey
+
+### Custom static files (CSS/JavaScript) not displaying in production
+
+- Upon deployment to Heroku, the site's custom CSS and JavaScript files were not rendering at all.
+- This bug was solved by setting DEBUG to False in settings.py for deployment as well as removing the previously used DISABLE_COLLECTSTATIC config var on Heroku
+- When running the server in production, I manually reset the DEBUG value to True.
+
 
 ## Deployment
 
