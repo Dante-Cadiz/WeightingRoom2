@@ -48,47 +48,53 @@
                      <p>Please <a href="{% url 'account_login' %}">log in</a> or <a href="{% url 'account_signup' %}">create an account</a> in order to book events</p>
                      {% endif %}
                      <div class="overflow-auto mt-3 comments-div">
-                     {% for comment in comments %}
-                     {% if comment.name == user.username %}
-                     <div class="mt-3 ml-auto user-comment" >
-                        <strong>
+                        {% for comment in comments %}
+                        {% if comment.name == user.username %}
+                        <div class="mt-3 ml-auto">
+                           <div class="user-comment-wrapper">
+                           <strong>
                            You wrote:
-                        </strong>
-                        "{{comment.content}}"
-                        <div class="small">{{comment.created_on}}</div>
-                        <div class="d-flex flex-row-reverse">
+                           </strong>
+                           "{{comment.content}}"
+                           <div class="small">{{comment.created_on}}</div>
+                           <div class="d-flex flex-row-reverse">
                            <form action="{% url 'delete_comment' event.slug comment.id %}" method="POST" >
-                              {% csrf_token %}   
-                           <button class="btn btn-secondary delete-comment" >Delete</button>
+                                 {% csrf_token %}   
+                              <button class="btn btn-secondary delete-comment" >Delete</button>
                            </form>
-                           <button class="btn btn-primary edit-comment">Edit</a>
-                     </div>
-                     <div class="edit-user-comment-wrapper">
-                     <form method="post">
-                        {{ comment_form }}
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Submit</button>  
-                     </form>
-                     <button class="btn btn-secondary discard">Discard</button>
-                     </div>
-                     </div>
-                     {% else %}
-                     <div class="mt-3 ml-auto">
-                        <strong>
+                           <button class="btn btn-primary edit-comment">
+                                 Edit
+                           </button>
+                           </div>
+                           </div>
+                           <div class="edit-user-comment-wrapper">
+                           <form method="post">
+                           {{ comment_form }}
+                           {% csrf_token %}
+                           <div class="d-flex flex-row-reverse">
+                           <button type="submit" class="btn btn-primary">Submit</button>  
+                           </form>
+                           <button class="btn btn-secondary discard">Discard</button>
+                           </div>
+                           </div>
+                        </div>
+                        {% else %}
+                        <div class="mt-3 ml-auto">
+                           <strong>
                            {{comment.name}}:
-                        </strong>
-                        "{{comment.content}}"
-                        <div class="small">{{comment.created_on}}</div>
-                     </div>
-                     {% endif %}
-                     {% endfor %}
+                           </strong>
+                           "{{comment.content}}"
+                           <div class="small">{{comment.created_on}}</div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
                      </div>
                      {% if user.is_authenticated %}
                      <h5 class="mt-3">Leave a comment:</h5>
                      <form method="post">
                         <div class="form-group">
-                        {{ comment_form }}
-                        {% csrf_token %}
+                           {{ comment_form }}
+                           {% csrf_token %}
                         </div>
                         <button type="submit" class="btn btn-primary mt-2">Submit</button> 
                      </form>

@@ -17,7 +17,7 @@ setTimeout(function () {
 
 $(".edit-comment").click(function(e){
     var buttonClicked = e.target;
-    var userCommentContainer = $(buttonClicked).parents(".user-comment");
+    var userCommentContainer = $(buttonClicked).parents(".user-comment-wrapper");
     $(userCommentContainer).hide();
     var editFormContainer = $(userCommentContainer).siblings(".edit-user-comment-wrapper");
     editFormContainer.show();
@@ -29,8 +29,8 @@ $(".discard").click(function(e){
     var buttonClicked = e.target;
     var editFormContainer = $(buttonClicked).parents(".edit-user-comment-wrapper");
     editFormContainer.hide();
-    var userCommentContainer = $(editFormContainer).siblings(".user-comment");
-    $(userCommentContainer).hide();
+    var userCommentContainer = $(editFormContainer).siblings(".user-comment-wrapper");
+    userCommentContainer.show();
     
 });
 });
