@@ -116,22 +116,17 @@ class BookingsView(View):
 
 class EditComment(UpcomingEventMixin, View):
 
-    def get(self, request, slug, *args, **kwargs):
-        comments = Comment.objects.filter(name=self.request.user.username,
-                                          approved=True)
-        comment = get_object_or_404(comments, id=self.kwargs['pk'])
-        # render a template of the comment form
-        
-
     def post(self, request, slug, *args, **kwargs):
         comments = Comment.objects.filter(name=self.request.user.username,
                                           approved=True)
         comment = get_object_or_404(comments, id=self.kwargs['pk'])
-        comment_form = CommentForm(data=request.POST)
+        event = get_object_or_404(UpcomingEventMixin.queryset, slug=slug)
+        comment_form = CommentForm(instance=comment, data=request.POST)
         if comment_form.is_valid():
             comment_form.instance.name = request.user.username
             comment = comment_form.save(commit=False)
             comment.event = event
+            comment.approved = False
             comment.save()
             messages.add_message(request, messages.SUCCESS, "Comment edited and awaiting moderation")
         else:

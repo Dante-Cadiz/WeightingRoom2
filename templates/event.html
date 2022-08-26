@@ -68,7 +68,7 @@
                            </div>
                            </div>
                            <div class="edit-user-comment-wrapper">
-                           <form method="post">
+                           <form method="post" action="{% url 'edit_comment' event.slug comment.id %}" method="POST">
                            {{ comment_form }}
                            {% csrf_token %}
                            <div class="d-flex flex-row-reverse">
