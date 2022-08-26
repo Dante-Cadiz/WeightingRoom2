@@ -1,5 +1,7 @@
 # Weighting Room -  a Full Stack Django Project
 
+Deployed version: https://weightingroom.herokuapp.com/
+
 ## Index
 
 ## Introduction
@@ -59,6 +61,8 @@ I used Lucidchart to put together an Entity Relationship Diagram that showed how
 
 ### Admin Functionality
 
+- Administrators are able to create, edit, and delete events and their respective timeslots through accessing the site's admin panel
+
 ### Potential Future Features
 
 - Email-based signup and verification to ensure that site user is a member of the Weighting Room gym
@@ -80,7 +84,7 @@ I used Lucidchart to put together an Entity Relationship Diagram that showed how
 - GitHub - Gitpod, Git, Git issues
 - Heroku
 - PostgreSQL
-- Cloudinary image storage
+- Cloudinary 
 
 
 ### Frameworks
@@ -117,13 +121,22 @@ PEP8 compliance
 Manually testing the application constantly took place throughout the development process
 
 Reported issues:
- -
- -
+ - Site running very slowly
+
  -
 
 ## Noteworthy Bugs
 
 ## Deployment
+
+### Creation of Django Project
+
+- Gunicorn
+- Psycopg2
+- App creation
+- requirements.txt
+- Procfile
+- env.py in .gitignore to hide secret keys
 
 ### Deployment to Heroku
 
