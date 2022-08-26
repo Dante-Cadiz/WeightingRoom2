@@ -7,7 +7,7 @@ from .forms import CommentForm
 
 
 class UpcomingEventMixin(object):
-    queryset = Event.objects.filter(status=1) 
+    queryset = Event.objects.filter(status=1).order_by('-created_on')
 
 class EventList(UpcomingEventMixin, generic.ListView):
     template_name = "index.html"

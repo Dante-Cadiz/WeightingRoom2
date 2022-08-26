@@ -10,8 +10,6 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'base.html')
         self.assertTemplateUsed(response, 'index.html')
-
-        self.assertContains(response.content, "<h2 class=\"card-title my-2\">test event</h2>")
     
     def test_event_detail_url_resolves(self):
         url = reverse('event', args=['test_slug'])

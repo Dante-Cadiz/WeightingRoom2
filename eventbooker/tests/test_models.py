@@ -17,11 +17,11 @@ class TestAllModels(TestCase):
         for i in range(5):
             timeslot.attendees.create(username=f"testuser{i}")
         
-    def test_string_method(self):
+    def test_event_string_representation(self):
         event = Event.objects.get(title="Test")
         self.assertEqual(str(event), "Test")
     
-    def test_attendees_method(self):
+    def test_attendees_counted_correctly(self):
         timeslot = EventTimeslot.objects.get(id=1)
         self.assertEqual(timeslot.number_of_attendees(), 5)
     
@@ -31,18 +31,18 @@ class TestAllModels(TestCase):
         with self.assertRaises(ValidationError):
             timeslot2.clean()
     
-    def test_status_update_method(self):
+    def test_timeslot_updates_status(self):
         timeslot = EventTimeslot.objects.get(id=1)
         timeslot.set_to_past()
         self.assertEqual(timeslot.event.status, 2)
 
-    def test_timeslot_string_method(self):
+    def test_timeslot_representation(self):
         timeslot = EventTimeslot.objects.get(id=1)
         self.assertEqual(str(timeslot), '20/8, 15:30 - 16:30')
     
-    def test_booking_string_method(self):
+    def test_booking_representation(self):
         booking = Booking.objects.get(id=1)
-        self.assertEqual(str(booking), "You have booked this event at 20/8, 15:30 - 16:30")
+        self.assertEqual(str(booking), "20/8, 15:30 - 16:30")
 
     
 
