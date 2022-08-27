@@ -11,7 +11,7 @@
                         <img class="card-img-top" src="{{ event.featured_image.url }}" alt="Featured image for gym event">
                      </div>
                      <h2 class="card-title my-2">{{ event }}</h2>
-                     <p class="card-text">{{ event.content }}</p>
+                     <p class="card-text">{{ event.content | safe }}</p>
                   </div>
                </div>
             </div>
@@ -52,30 +52,30 @@
                         {% if comment.name == user.username %}
                         <div class="mt-3 ml-auto">
                            <div class="user-comment-wrapper">
-                           <strong>
-                           You wrote:
-                           </strong>
-                           "{{comment.content}}"
-                           <div class="small">{{comment.created_on}}</div>
-                           <div class="d-flex flex-row-reverse">
-                           <form action="{% url 'delete_comment' event.slug comment.id %}" method="POST" >
-                                 {% csrf_token %}   
-                              <button class="btn btn-secondary delete-comment" >Delete</button>
-                           </form>
-                           <button class="btn btn-primary edit-comment">
+                              <strong>
+                              You wrote:
+                              </strong>
+                              "{{comment.content}}"
+                              <div class="small">{{comment.created_on}}</div>
+                              <div class="d-flex flex-row-reverse">
+                                 <form action="{% url 'delete_comment' event.slug comment.id %}" method="POST" >
+                                    {% csrf_token %}   
+                                    <button class="btn btn-secondary delete-comment" >Delete</button>
+                                 </form>
+                                 <button class="btn btn-primary edit-comment">
                                  Edit
-                           </button>
-                           </div>
+                                 </button>
+                              </div>
                            </div>
                            <div class="edit-user-comment-wrapper">
-                           <form method="post" action="{% url 'edit_comment' event.slug comment.id %}" method="POST">
-                           {{ comment_form }}
-                           {% csrf_token %}
-                           <div class="d-flex flex-row-reverse">
-                           <button type="submit" class="btn btn-primary">Submit</button>  
-                           </form>
-                           <button class="btn btn-secondary discard">Discard</button>
-                           </div>
+                              <form method="post" action="{% url 'edit_comment' event.slug comment.id %}" method="POST">
+                                 {{ comment_form }}
+                                 {% csrf_token %}
+                                 <div class="d-flex flex-row-reverse">
+                                    <button type="submit" class="btn btn-primary">Submit</button>  
+                              </form>
+                              <button class="btn btn-secondary discard">Discard</button>
+                              </div>
                            </div>
                         </div>
                         {% else %}
@@ -97,9 +97,9 @@
                            {% csrf_token %}
                         </div>
                         <div class="d-flex flex-row-reverse">
-                        <button type="submit" class="btn btn-primary mt-2">Submit</button> 
+                           <button type="submit" class="btn btn-primary mt-2">Submit</button> 
                      </form>
-                  </div>
+                     </div>
                      {% else %}
                      <p class="mt-3">Log in to leave a comment!</p>
                      {% endif %}

@@ -1,36 +1,33 @@
 {% extends "base.html" %}
-
 {% block content %}
-
 <div class="container-fluid">
-    <div class="row">
-       <div class="col-sm-12 mt-2 left">
-          <div class="row">
-            {% if bookings %}
-            {% for booking in bookings %}
-             <div class="col-md-4">
-                <div class="card mb-3 bg-light border-primary">
-                   <div class="card-body">
-                      <h2 class="card-title">{{ booking.event }}</h2>
-                      <p class="card-text">{{ booking.timeslot }}</p>
-                      <a href="{% url 'event' booking.event.slug %}">View Event Detail</a>
-                   </div>
-                </div>
-             </div>
-             {% endfor %}
-             {% else %}
-             <div class="col-md-6 mx-auto">
-                <div class="card mb-3 bg-light border-primary">
-                   <div class="card-body">
-                     <h5>You are not currently booked into any events - why not visit our 
-                        <a href="{% url 'home' %}">home page</a> to browse what we have on!
-                     </h5>  
-                   </div>
-                </div>
-             </div>
-
-             {% endif %}
-          </div>
-       </div>
-    </div>
+<div class="row">
+   <div class="col-sm-12 mt-2 left">
+      <div class="row">
+         {% if bookings %}
+         {% for booking in bookings %}
+         <div class="col-md-4">
+            <div class="card mb-3 bg-light border-primary">
+               <div class="card-body">
+                  <h2 class="card-title">{{ booking.event }}</h2>
+                  <p class="card-text">{{ booking.timeslot }}</p>
+                  <a href="{% url 'event' booking.event.slug %}">View Event Detail</a>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+         {% else %}
+         <div class="col-md-6 mx-auto">
+            <div class="card mb-3 bg-light border-primary">
+               <div class="card-body">
+                  <h5>You are not currently booked into any events - why not visit our 
+                     <a href="{% url 'home' %}">home page</a> to browse what we have on!
+                  </h5>
+               </div>
+            </div>
+         </div>
+         {% endif %}
+      </div>
+   </div>
+</div>
 {% endblock content %}
