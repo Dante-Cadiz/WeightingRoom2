@@ -23,6 +23,47 @@ With these Epics defined, I then generated User Stories that worked towards thes
 I used GitHub Issues and Projects to record and track the progress on the fulfilment of each individual User Story. The User Stories were created as GitHub issues and then placed on a kanban board made with GitHub Projects. 
 ![GitHub project tracking user stories](https://i.imgur.com/mzsdoTV.png)
 I also kept the user stories in a Google Sheet that held the development tasks associated with
+
+- As a site admin I can post a new event listing so that site users can book themselves into the event
+
+- As a site admin I can edit or delete previously existing events so that I can change their details as necessary to update their status
+
+- As a site admin I can restrict the maximum amount of bookings for an event to a given number so that my events are not overbooked
+
+- As a site admin I can post events with multiple available timeslots so that I can offer a variety of easy to access timeslot options to my users
+
+- As a site admin I can approve and moderate comments for public viewing so that I can ensure they are appropriate and pertinent before being publicly available
+
+- As a site user or admin I can view how many people are attending a given event so that I can choose whether I attend accordingly/view how many people are attending my event to provide for it accordingly
+This user story ended up only being an admin feature; in fact in some cases it could be seen as undesirable for a basic user to see how many people were attending an event, as they could be reluctant to book themselves into the event if they are the first booker.
+
+- As a site user I can create an account so that I can have access to members-only site features such as event booking and commenting
+
+- As a site user I can log in to the site with prior created account details so that I can access and use the site's member only features
+
+- As a site user I can book myself into an available event timeslot so that I can securely reserve my position at said event
+
+- As a site user I can see and read about all available events and classes so that I can choose which ones to book myself into and take part in
+
+- As a site user I can navigate across pages of the site to view events so that there is no information overload on a single unpaginated home page
+
+- As a site user I can view my upcoming events that I have booked into so that I can keep a record of them, check for scheduling conflicts, and withdraw from events as necessary
+
+- As a site user I can withdraw from an event I have previously booked into so that my spot is freed up for someone else
+
+- As a site user I can select which time I want to book my event out of multiple available choices so that I can book the event that suits my schedule
+
+- As a site user I can change which time I have booked an event slot for while maintaining my booking so that I can fit the event into my schedule
+
+- As a site user I can comment on event pages so that I can share my interest and socialise with other people attending the event
+
+- As a site user I can edit my previously made comments so that I can amend them if I have made a typo or forgotten something
+
+- As a site user I can delete my previously made comments so that I can remove information that I no longer wish to share
+
+
+
+
  
 
 ### Wireframes and ERD
@@ -145,23 +186,36 @@ Moving some script tags in base.html to the head of the document to ensure they 
 
 - Upon deployment to Heroku, the site's custom CSS and JavaScript files were not rendering at all.
 - This bug was solved by setting DEBUG to False in settings.py for deployment as well as removing the previously used DISABLE_COLLECTSTATIC config var on Heroku
-- When running the server in production, I manually reset the DEBUG value to True.
+- When running the server in development, I manually reset the DEBUG value to True.
 
 
 ## Deployment
 
-### Creation of Django Project
+### Creation of Django Project and Local Environment Setup
 
 - Gunicorn
 - Psycopg2
 - App creation
-- requirements.txt
-- Procfile
+
 - env.py in .gitignore to hide secret keys
 
 ### Deployment to Heroku
 
+- Once requirements are installed, run the terminal command: pip3 freeze > requirements.txt
+- Log into ![Heroku](heroku.com)
+- Create the new app name and choose region
+- Add Heroku Postgres in Heroku Add-ons to provide the app's database
+
+- Create a Procfile containing the following ```
+web: gunicorn PROJECT_NAME.wsgi
+```
 This project was deployed to Heroku using the following steps
+
+### Forking the GitHub Project
+
+### Making a Local Clone
+
+- Follow the steps above to set up your local environment
 
 ## Credits
 
