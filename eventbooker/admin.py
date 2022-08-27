@@ -3,8 +3,10 @@ from .models import Event, EventTimeslot, Booking, Comment
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
+
 class TimeslotInline(admin.TabularInline):
     model = EventTimeslot
+
 
 @admin.register(Event)
 class EventAdmin(SummernoteModelAdmin):
@@ -12,9 +14,11 @@ class EventAdmin(SummernoteModelAdmin):
     summernote_fields = ('content')
     inlines = [TimeslotInline, ]
 
+
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

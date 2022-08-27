@@ -7,6 +7,11 @@ h1, h2, h3, h4, h5 {
     letter-spacing: 0.1em;
 }
 
+nav, footer {
+    background-color: #00008B;
+
+}
+
 footer {
     font-size: small;
 }
@@ -34,6 +39,11 @@ textarea {
 @media screen and (min-width: 600px) {
     h1 {
         font-size: 78px;
+    }
+
+    #navbarLinks {
+        display: flex;
+        justify-content: end;
     }
 }
 

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from cloudinary.models import CloudinaryField
@@ -22,25 +21,22 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-    
-    
-    #get_absolute_url method?
-    
-    
+
+
 class EventTimeslot(models.Model):
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name='times', null=True)
     attendees = models.ManyToManyField(User, blank=True)
-                                       
+
     def number_of_attendees(self):
         return self.attendees.count()
-    
+
     def set_to_past(self):
         if self.start_time < now:
             self.event.status = 2
-    
+
     def clean(self):
         if self.start_time >= self.end_time:
             raise ValidationError("Start time must be before end time.")
@@ -49,19 +45,19 @@ class EventTimeslot(models.Model):
         start = self.start_time.strftime("%-d/%-m, %H:%M")
         end = self.end_time.strftime("%H:%M")
         return f"{start} - {end}"
-          
+
 
 class Booking(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, 
+    event = models.ForeignKey(Event, on_delete=models.CASCADE,
                               related_name='event', blank=True)
-    booker = models.ForeignKey(User, on_delete=models.CASCADE, 
+    booker = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name='booker', blank=True)
-    timeslot = models.ForeignKey(EventTimeslot, on_delete=models.CASCADE, 
+    timeslot = models.ForeignKey(EventTimeslot, on_delete=models.CASCADE,
                                  related_name='timeslots', blank=True)
 
     def __str__(self):
         return f"{self.timeslot}"
-    
+
 
 class Comment(models.Model):
     name = models.CharField(max_length=30, default='Username')
